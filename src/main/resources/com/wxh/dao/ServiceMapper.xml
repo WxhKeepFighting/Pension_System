@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxh.dao.ServiceMapper">
+  <resultMap id="BaseResultMap" type="com.wxh.model.Service">
+    <id column="mission_id" jdbcType="VARCHAR" property="missionId" />
+    <result column="service_status" jdbcType="VARCHAR" property="serviceStatus" />
+    <result column="service_stime" jdbcType="VARCHAR" property="serviceStime" />
+    <result column="service_etime" jdbcType="VARCHAR" property="serviceEtime" />
+    <result column="service_spic" jdbcType="VARCHAR" property="serviceSpic" />
+    <result column="service_epic" jdbcType="VARCHAR" property="serviceEpic" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    mission_id, service_status, service_stime, service_etime, service_spic, service_epic
+  </sql>
+  <select id="selectByExample" parameterType="com.wxh.model.ServiceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from service
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service
+    where mission_id = #{missionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from service
+    where mission_id = #{missionId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wxh.model.ServiceExample">
+    delete from service
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wxh.model.Service">
+    insert into service (mission_id, service_status, service_stime, 
+      service_etime, service_spic, service_epic
+      )
+    values (#{missionId,jdbcType=VARCHAR}, #{serviceStatus,jdbcType=VARCHAR}, #{serviceStime,jdbcType=VARCHAR}, 
+      #{serviceEtime,jdbcType=VARCHAR}, #{serviceSpic,jdbcType=VARCHAR}, #{serviceEpic,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wxh.model.Service">
+    insert into service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="missionId != null">
+        mission_id,
+      </if>
+      <if test="serviceStatus != null">
+        service_status,
+      </if>
+      <if test="serviceStime != null">
+        service_stime,
+      </if>
+      <if test="serviceEtime != null">
+        service_etime,
+      </if>
+      <if test="serviceSpic != null">
+        service_spic,
+      </if>
+      <if test="serviceEpic != null">
+        service_epic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="missionId != null">
+        #{missionId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceStatus != null">
+        #{serviceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceStime != null">
+        #{serviceStime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEtime != null">
+        #{serviceEtime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceSpic != null">
+        #{serviceSpic,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEpic != null">
+        #{serviceEpic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wxh.model.ServiceExample" resultType="java.lang.Long">
+    select count(*) from service
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update service
+    <set>
+      <if test="record.missionId != null">
+        mission_id = #{record.missionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceStatus != null">
+        service_status = #{record.serviceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceStime != null">
+        service_stime = #{record.serviceStime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceEtime != null">
+        service_etime = #{record.serviceEtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceSpic != null">
+        service_spic = #{record.serviceSpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceEpic != null">
+        service_epic = #{record.serviceEpic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update service
+    set mission_id = #{record.missionId,jdbcType=VARCHAR},
+      service_status = #{record.serviceStatus,jdbcType=VARCHAR},
+      service_stime = #{record.serviceStime,jdbcType=VARCHAR},
+      service_etime = #{record.serviceEtime,jdbcType=VARCHAR},
+      service_spic = #{record.serviceSpic,jdbcType=VARCHAR},
+      service_epic = #{record.serviceEpic,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wxh.model.Service">
+    update service
+    <set>
+      <if test="serviceStatus != null">
+        service_status = #{serviceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceStime != null">
+        service_stime = #{serviceStime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEtime != null">
+        service_etime = #{serviceEtime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceSpic != null">
+        service_spic = #{serviceSpic,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEpic != null">
+        service_epic = #{serviceEpic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mission_id = #{missionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wxh.model.Service">
+    update service
+    set service_status = #{serviceStatus,jdbcType=VARCHAR},
+      service_stime = #{serviceStime,jdbcType=VARCHAR},
+      service_etime = #{serviceEtime,jdbcType=VARCHAR},
+      service_spic = #{serviceSpic,jdbcType=VARCHAR},
+      service_epic = #{serviceEpic,jdbcType=VARCHAR}
+    where mission_id = #{missionId,jdbcType=VARCHAR}
+  </update>
+</mapper>
