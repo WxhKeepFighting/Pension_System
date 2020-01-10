@@ -18,4 +18,4 @@ logging:
 #  mapper-locations: classpath:mapper/*.xml
 #  config-location: classpath:SqlMapConfig.xml
 server:
-  port:
+  port: 10240

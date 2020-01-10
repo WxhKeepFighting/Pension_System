@@ -1,8 +1,7 @@
 package com.wxh.controller;
 
 import com.wxh.Exception.AjaxResponse;
-import com.wxh.MyEntity.TotalInfo;
-import com.wxh.MyEntity.TransJson;
+import com.wxh.utils.TotalInfo;
 import com.wxh.model.USystem;
 import com.wxh.service.UserService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-public class User_SystemController {
+public class VSystemController {
 
     @Resource
     private UserService service;
@@ -27,12 +26,9 @@ public class User_SystemController {
         USystem user_system = new USystem();
         user_system.setsId(username);
         user_system.setsPassword(password);
-        TransJson transJson = service.loginVerification(user_system);
-        List<Object> list=new ArrayList<>();
-        list.add(transJson);
-        List<AjaxResponse> infoList=new ArrayList<>();
-        infoList.add(AjaxResponse.success(list));
-        return new TotalInfo(infoList);
+        List ulist = service.loginVerification(user_system);
+        List<AjaxResponse> alist = TotalInfo.encapsulation(ulist);
+        return new TotalInfo(alist);
     }
 
 }

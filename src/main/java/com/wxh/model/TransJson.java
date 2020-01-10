@@ -1,4 +1,4 @@
-package com.wxh.MyEntity;
+package com.wxh.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

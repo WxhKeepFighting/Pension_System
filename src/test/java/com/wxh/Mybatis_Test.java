@@ -5,6 +5,7 @@ import com.wxh.dao.MissionMapper;
 import com.wxh.dao.MissionViewMapper;
 import com.wxh.dao.USystemMapper;
 import com.wxh.model.*;
+import com.wxh.service.SCreditService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +29,9 @@ public class Mybatis_Test {
     
     @Resource
     MissionViewMapper missionViewMapper;
+
+    @Resource
+    SCreditService sCreditService;
 
     @Test
     public void missionTest(){
@@ -57,20 +61,34 @@ public class Mybatis_Test {
     @Test
     public void TotalCredit(){
 
-        MissionViewExample example= new MissionViewExample();
-        MissionViewExample.Criteria criteria = example.createCriteria();
-        criteria.andMissionVolunteerIdEqualTo("371311199010101111");//服务人
-        criteria.andMissionStatusEqualTo("2");
-        int i = missionViewMapper.calTotalCredit(example);
-        System.out.println("总积分为"+i);
-        long l = missionViewMapper.countByExample(null);
-        System.out.println("总记录条数为"+l);
+//        MissionViewExample example= new MissionViewExample();
+//        MissionViewExample.Criteria criteria = example.createCriteria();
+//        criteria.andMissionVolunteerIdEqualTo("371311199010101111");//服务人
+//        criteria.andMissionStatusEqualTo("2");
+//        int i = missionViewMapper.calTotalCredit(example);
+//        System.out.println("总积分为"+i);
+        MissionViewExample example1 = new MissionViewExample();
+        MissionViewExample.Criteria criteria1 = example1.createCriteria();
+        criteria1.andServiceEtimeBetween(2019+"-10-23 00:00",2019+"-10-28 00:00");
+        List<UVolunteerCredit> rankInfo = missionViewMapper.calTotalCreditRank(example1);
+        rankInfo.forEach(System.out::print);
+
+//        MissionViewExample example = new MissionViewExample();
+//        MissionViewExample.Criteria criteria2 = example.createCriteria();
+//        criteria2.andServiceEtimeBetween(2019+"-09-01 00:00",year+"-10-01 00:00");
+//        missionViewMapper.calTotalCreditRank(example);
 
 //        MissionExample example1 = new MissionExample();
 //        MissionExample.Criteria criteria1 = example1.createCriteria();
-        List<UVolunteerCredit> uVolunteerCredits = missionViewMapper.calTotalCreditRank(null);
-        uVolunteerCredits.forEach(System.out::print);
+//        List<UVolunteerCredit> uVolunteerCredits = missionViewMapper.calTotalCreditRank(null);
+//        uVolunteerCredits.forEach(System.out::print);
 
+    }
+
+    @Test
+    public void test01(){
+        List<UVolunteerCredit> rankInfo = sCreditService.getRankInfo(2019);
+        rankInfo.forEach(System.out::print);
     }
 
 

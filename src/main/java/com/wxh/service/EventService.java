@@ -22,8 +22,7 @@ public class EventService {
 //
     //查询所有事件
     public List<Event> findAll(){
-        List<Event> list = eventMapper.selectByExample(null);
-        return list;
+        return eventMapper.selectByExample(null);
     }
     
 }

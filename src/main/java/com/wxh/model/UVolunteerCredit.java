@@ -12,7 +12,5 @@ public class UVolunteerCredit {
 
     private String vId;
     private String vName;
-    private String vPhone;
-    private String vAddress;
     private Integer totalCredit;
 }

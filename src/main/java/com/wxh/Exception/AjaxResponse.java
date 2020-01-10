@@ -2,6 +2,8 @@ package com.wxh.Exception;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+
 //请求响应
 @Data
 public class AjaxResponse {
@@ -19,10 +21,13 @@ public class AjaxResponse {
         resultBean.setCode(e.getCode());
         if (e.getCode() == CustomExceptionType.USER_INPUT_ERROR.getCode()){
             resultBean.setMessage(e.getMessage());
+            resultBean.setData(new ArrayList<>());
         }else if (e.getCode() == CustomExceptionType.SYSTEM_ERROR.getCode()){
             resultBean.setMessage(e.getMessage()+"，系统出现异常，请联系管理员进行处理");
+            resultBean.setData(new ArrayList<>());
         }else {
             resultBean.setMessage(e.getMessage()+"，系统出现未知异常，请联系管理员进行处理");
+            resultBean.setData(new ArrayList<>());
         }
         return resultBean;
     }
